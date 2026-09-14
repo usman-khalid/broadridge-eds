@@ -1,5 +1,5 @@
 .card {
-  --card-surface: var(--color-grey-panel);
+  --card-surface: var(--color-white);
   --card-on: var(--color-navy-deep);
   --card-eyebrow-bg: var(--color-blue-pale);
   --card-eyebrow-on: var(--color-navy-deep);
