@@ -1,0 +1,218 @@
+.card {
+  --card-surface: var(--color-grey-panel);
+  --card-on: var(--color-navy-deep);
+  --card-eyebrow-bg: var(--color-blue-pale);
+  --card-eyebrow-on: var(--color-navy-deep);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--radius);
+  background-color: var(--card-surface);
+  color: var(--card-on);
+  overflow: hidden;
+}
+
+.card .card-media {
+  margin: 0;
+  line-height: 0;
+}
+
+.card:not(.media) .card-media {
+  aspect-ratio: 3 / 2;
+}
+
+.card .card-media picture,
+.card .card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-m);
+  padding: var(--space-l);
+}
+
+.card .card-body > p:first-child {
+  margin: 0;
+  border-radius: var(--radius);
+  background-color: var(--card-eyebrow-bg);
+  padding: var(--space-3xs) var(--space-xs);
+  color: var(--card-eyebrow-on);
+  font-size: var(--body-font-size-xs);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.card .card-body h2,
+.card .card-body h3,
+.card .card-body h4 {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+
+.card:not(.media):has(.card-media) .card-body h2,
+.card:not(.media):has(.card-media) .card-body h3,
+.card:not(.media):has(.card-media) .card-body h4 {
+  font-size: var(--heading-font-size-s);
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+.card .card-body p:last-child {
+  margin: auto 0 0;
+}
+
+.card .card-body a:not(.button) {
+  color: inherit;
+  font-size: var(--body-font-size-s);
+  font-weight: 500;
+}
+
+.card .card-body a:any-link,
+.card .card-body a:hover,
+.card .card-body a:focus-visible {
+  text-decoration: none;
+}
+
+.card .card-cta-arrow {
+  display: inline-flex;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.card .card-cta-arrow svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.card.is-clickable {
+  position: relative;
+  transition: background-color 0.15s ease, box-shadow 0.3s var(--ease-out);
+}
+
+.card.is-clickable:hover {
+  box-shadow: var(--shadow-card);
+  background-color: var(--card-surface-hover, var(--card-surface));
+}
+
+.card.is-clickable:hover .card-cta-arrow {
+  transform: translateX(12px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card .card-cta-arrow,
+  .card.is-clickable {
+    transition: none;
+  }
+
+  .card.is-clickable:hover .card-cta-arrow {
+    transform: none;
+  }
+}
+
+.card.is-clickable .card-body a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* media — body panel overlays the image */
+.card.media {
+  display: grid;
+  position: relative;
+  background-color: transparent;
+}
+
+.card.media .card-media {
+  grid-area: 1 / 1;
+  min-height: 260px;
+  height: 100%;
+}
+
+.card.media .card-body {
+  grid-area: 1 / 1;
+  align-self: end;
+  flex: none;
+  margin: var(--space-l);
+  border-radius: var(--radius);
+  background-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+.card.media .card-body > p:first-child {
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.card.is-clickable.media .card-body {
+  transition: background-color 0.15s ease;
+}
+
+.card.is-clickable.media:hover .card-body {
+  background-color: var(--color-navy-deep);
+}
+
+/* surface — one bundle mechanism. Each surface pairs bg + on-color for legibility.
+   Curated intents (dark/tint/accent) are aliases of specific palette surfaces;
+   the raw surface-* palette exists so the trade-off can be shown, not recommended. */
+.card.surface-white {
+  --card-surface: var(--color-white);
+}
+
+.card.surface-grey {
+  --card-surface: var(--color-grey-panel);
+}
+
+.card.tint,
+.card.surface-tint {
+  --card-surface: var(--color-blue-tint);
+}
+
+.card.surface-pale {
+  --card-surface: var(--color-blue-pale);
+  --card-eyebrow-bg: var(--color-white);
+}
+
+.card.accent,
+.card.surface-brand {
+  --card-surface: var(--color-blue);
+  --card-surface-hover: var(--color-blue-deep);
+  --card-on: var(--color-white);
+  --card-eyebrow-bg: var(--color-white);
+  --card-eyebrow-on: var(--color-blue-deep);
+}
+
+.card.surface-blue-deep {
+  --card-surface: var(--color-blue-deep);
+  --card-surface-hover: var(--color-blue-active);
+  --card-on: var(--color-white);
+  --card-eyebrow-bg: var(--color-white);
+  --card-eyebrow-on: var(--color-blue-deep);
+}
+
+.card.dark,
+.card.surface-navy {
+  --card-surface: var(--color-navy);
+  --card-surface-hover: var(--color-navy-deep);
+  --card-on: var(--color-white);
+  --card-eyebrow-bg: var(--color-blue);
+  --card-eyebrow-on: var(--color-white);
+}
+
+.card.surface-navy-deep {
+  --card-surface: var(--color-navy-deep);
+  --card-surface-hover: var(--color-black);
+  --card-on: var(--color-white);
+  --card-eyebrow-bg: var(--color-blue);
+  --card-eyebrow-on: var(--color-white);
+}

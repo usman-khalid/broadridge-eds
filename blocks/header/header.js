@@ -124,7 +124,7 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
+  const classes = ['utility', 'brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
@@ -167,5 +167,11 @@ export default async function decorate(block) {
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+  const navUtility = nav.querySelector('.nav-utility');
+  if (navUtility) navWrapper.prepend(navUtility);
   block.append(navWrapper);
+
+  const setScrolled = () => block.classList.toggle('is-scrolled', window.scrollY > 0);
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
 }
