@@ -1,8 +1,8 @@
-/* A7 Cards. Type is anatomy — which slots exist — and each type states its own surface in its
-   spec. There is no colour axis: an author picks a type, never a colour. The section's theme
-   decides what that type's surface resolves to. */
+/* A7 Cards. Type is anatomy — which slots exist. Surface is color/surface/{light,base,mid,dim}:
+   a role, not a colour. The same role resolves to a different hex per section theme, so nothing
+   an author writes ever records a colour. */
 .card {
-  --card-surface: var(--card-surface-panel);
+  --card-surface: var(--surface-light);
   --card-on: var(--on-surface);
   --card-eyebrow-bg: var(--badge-bg);
   --card-eyebrow-on: var(--badge-on);
@@ -157,11 +157,28 @@
   z-index: 1;
 }
 
+/* surface — color/surface/*. Default is light, as the Color set integration board shows it. */
+.card.surface-base {
+  --card-surface: var(--surface-base);
+}
+
+.card.surface-mid {
+  --card-surface: var(--surface-mid);
+}
+
+/* dim collides with the badge's own colour, so the badge inverts. Surface and badge move
+   together or not at all — this pairing is the kit's, not ours. */
+.card.surface-dim {
+  --card-surface: var(--surface-dim);
+  --card-eyebrow-bg: var(--badge-bg-dim);
+  --card-eyebrow-on: var(--badge-on-dim);
+}
+
 /* types — anatomy, and each carries the surface its own spec states */
 
-/* bento: fixed tile, #F8F8F8 per the Bento spec */
+/* bento: fixed tile. The spec's #F8F8F8 is color/surface/base. */
 .card.bento {
-  --card-surface: var(--card-surface-tile);
+  --card-surface: var(--surface-base);
 }
 
 /* media: image, title, CTA. No fill and no padding, so text aligns to the image edge. */
@@ -189,7 +206,7 @@
 
 /* tabs: solid fill is part of the type, not an author choice */
 .card.tabs {
-  --card-surface: var(--card-surface-solid);
+  --card-surface: var(--color-blue-deep);
   --card-surface-hover: var(--color-blue-active);
   --card-on: var(--color-white);
   --card-eyebrow-bg: var(--color-white);

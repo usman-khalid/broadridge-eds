@@ -29,17 +29,20 @@
   --light-color: var(--color-grey-panel);
   --dark-color: var(--color-navy);
 
-  /* card surfaces. Not an author axis — each card type states its own surface in its spec,
-     and the section's theme decides what that resolves to. Authors never type a colour. */
-  --card-surface-panel: var(--color-blue-tint);
-
-  /* the Bento spec says #F8F8F8, which reads as a tile on the kit's white boards. Our page
-     ground is already #f9f9f9, so the tile takes the other side of the page to stay distinct. */
-  --card-surface-tile: var(--color-white);
-  --card-surface-solid: var(--color-blue-deep);
+  /* color/surface/* — the kit's four card surfaces, from the Color set integration board.
+     Each is one variable resolving to a different hex per theme, which is exactly why a card
+     names a surface role and never a colour. */
+  --surface-light: var(--color-white);
+  --surface-base: var(--color-grey-panel);
+  --surface-mid: var(--color-blue-tint);
+  --surface-dim: var(--color-blue-pale);
   --on-surface: var(--color-navy-deep);
   --badge-bg: var(--color-blue-pale);
   --badge-on: var(--color-navy-deep);
+
+  /* surface/dim sits on top of the badge's own colour, so the badge inverts to stay visible */
+  --badge-bg-dim: var(--color-navy);
+  --badge-on-dim: var(--color-white);
   --text-color: var(--color-black);
   --link-color: var(--color-blue);
   --link-hover-color: var(--color-blue-deep);
@@ -176,7 +179,7 @@ h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-weight: 300;
   line-height: 1.25;
   scroll-margin: 40px;
 }
@@ -376,12 +379,15 @@ main > .section[data-theme="dark"] {
   --surface-color: var(--color-navy-deep);
   --link-color: var(--color-blue-pale);
   --link-hover-color: var(--color-white);
-  --card-surface-panel: var(--color-navy);
-  --card-surface-tile: var(--color-blue-active);
-  --card-surface-solid: var(--color-blue-deep);
+  --surface-light: var(--color-blue-deep);
+  --surface-base: var(--color-blue-active);
+  --surface-mid: var(--color-navy);
+  --surface-dim: var(--color-navy-deep);
   --on-surface: var(--color-white);
   --badge-bg: var(--color-blue);
   --badge-on: var(--color-white);
+  --badge-bg-dim: var(--color-blue);
+  --badge-on-dim: var(--color-white);
 }
 
 main > .section[data-background="panel"] {
@@ -392,12 +398,15 @@ main > .section[data-background="brand"] {
   --surface-color: var(--color-blue);
   --text-color: var(--color-white);
   --link-color: var(--color-white);
-  --card-surface-panel: var(--color-navy);
-  --card-surface-tile: var(--color-blue-active);
-  --card-surface-solid: var(--color-navy-deep);
+  --surface-light: var(--color-blue-deep);
+  --surface-base: var(--color-blue-active);
+  --surface-mid: var(--color-navy);
+  --surface-dim: var(--color-navy-deep);
   --on-surface: var(--color-white);
   --badge-bg: var(--color-blue-pale);
   --badge-on: var(--color-navy-deep);
+  --badge-bg-dim: var(--color-blue);
+  --badge-on-dim: var(--color-white);
 }
 
 main > .section[data-theme="dark"],
