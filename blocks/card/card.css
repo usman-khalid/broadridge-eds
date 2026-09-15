@@ -2,7 +2,7 @@
    a role, not a colour. The same role resolves to a different hex per section theme, so nothing
    an author writes ever records a colour. */
 .card {
-  --card-surface: var(--surface-light);
+  --card-surface: var(--surface-mid);
   --card-on: var(--on-surface);
   --card-eyebrow-bg: var(--badge-bg);
   --card-eyebrow-on: var(--badge-on);
@@ -157,7 +157,12 @@
   z-index: 1;
 }
 
-/* surface — color/surface/*. Default is light, as the Color set integration board shows it. */
+/* surface — color/surface/*. The Default type's own spec draws its panel at mid, so that is the
+   default here; the Color set integration board documents all four. */
+.card.surface-light {
+  --card-surface: var(--surface-light);
+}
+
 .card.surface-base {
   --card-surface: var(--surface-base);
 }

@@ -25,7 +25,7 @@
   --color-black: #000;
 
   /* semantic */
-  --background-color: rgb(249 249 249 / var(--tw-bg-opacity, 1));
+  --background-color: var(--surface-light);
   --light-color: var(--color-grey-panel);
   --dark-color: var(--color-navy);
 
@@ -376,7 +376,10 @@ main > .section[data-width="extended"] > div {
 
 main > .section[data-theme="dark"] {
   --text-color: var(--color-white);
-  --surface-color: var(--color-navy-deep);
+
+  /* the dark colour set grounds at surface/light too, so the four card surfaces run the same
+     direction as they do on light. Grounding at navy-deep would collide with surface/dim. */
+  --surface-color: var(--surface-light);
   --link-color: var(--color-blue-pale);
   --link-hover-color: var(--color-white);
   --surface-light: var(--color-blue-deep);
@@ -391,7 +394,7 @@ main > .section[data-theme="dark"] {
 }
 
 main > .section[data-background="panel"] {
-  --surface-color: var(--color-grey-panel);
+  --surface-color: var(--surface-base);
 }
 
 main > .section[data-background="brand"] {
