@@ -130,6 +130,13 @@
   background-color: var(--card-surface-hover, var(--card-surface));
 }
 
+/* fill-less types have no surface to lift, so the panel hover would frame edge-flush content —
+   they get only the arrow slide */
+.card.is-clickable:is(.media, .profile):hover {
+  box-shadow: none;
+  background-color: transparent;
+}
+
 .card.is-clickable:hover .card-cta-arrow {
   transform: translateX(12px);
 }
