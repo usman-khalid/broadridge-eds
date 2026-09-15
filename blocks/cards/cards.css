@@ -1,21 +1,42 @@
-/* Stock cards block — deliberately the "standard" foil to the card (singular) block. Same brand
-   tokens for a cohesive look, but none of the per-card control: one auto-fill grid, every card
-   identical, no surface/type/prominence variants, no span widths, no whole-card click. */
+/* Stock cards block — the "standard" foil to the card (singular) block. Same media-card look
+   (image, chip, title, arrow) but uniform: one surface for the whole block, picked from three
+   variants, and a plain auto-fill grid — no per-card control. */
+.cards {
+  --cards-surface: var(--color-blue-tint);
+  --cards-on: var(--color-navy-deep);
+  --cards-chip-bg: var(--color-blue-pale);
+  --cards-chip-on: var(--color-navy-deep);
+}
+
+.cards.dark {
+  --cards-surface: var(--color-navy);
+  --cards-on: var(--color-white);
+  --cards-chip-bg: var(--color-blue);
+  --cards-chip-on: var(--color-white);
+}
+
+.cards.accent {
+  --cards-surface: var(--color-blue);
+  --cards-on: var(--color-white);
+  --cards-chip-bg: var(--color-white);
+  --cards-chip-on: var(--color-blue-deep);
+}
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   gap: var(--space-l);
 }
 
 .cards > ul > li {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-blue-pale);
   border-radius: var(--radius-l);
-  background-color: var(--surface-light);
+  background-color: var(--cards-surface);
+  color: var(--cards-on);
   overflow: hidden;
 }
 
@@ -24,6 +45,7 @@
 }
 
 .cards .cards-card-image img {
+  display: block;
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -34,16 +56,8 @@
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-s);
+  gap: var(--space-m);
   padding: var(--space-l);
-}
-
-.cards .cards-card-body :is(h2, h3, h4, h5, h6) {
-  margin: 0;
-  font-size: var(--body-font-size-m);
-  font-weight: 500;
-  letter-spacing: -0.4px;
-  line-height: 1.2;
 }
 
 .cards .cards-card-body p {
@@ -51,9 +65,39 @@
   font-size: var(--body-font-size-s);
 }
 
-.cards .cards-card-body a:any-link {
+.cards .cards-card-body :is(h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: var(--heading-font-size-s);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+/* eyebrow chip — only when the author put a label paragraph before the title */
+.cards .cards-card-body > p:first-child {
+  border-radius: var(--radius);
+  background-color: var(--cards-chip-bg);
+  padding: var(--space-3xs) var(--space-xs);
+  color: var(--cards-chip-on);
+  font-size: var(--body-font-size-xs);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cards .cards-card-body > p:last-child {
   margin-top: auto;
-  color: var(--link-color);
-  font-size: var(--body-font-size-s);
-  font-weight: 500;
+}
+
+.cards .cards-card-body a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards .cards-card-arrow {
+  display: inline-flex;
+}
+
+.cards .cards-card-arrow svg {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
