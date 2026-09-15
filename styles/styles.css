@@ -432,6 +432,6 @@ main > .section.padding-bottom-xl { padding-bottom: var(--space-3xl); }
 }
 
 
-main > .section.right > .default-content-wrapper {
+main > .section.right > .default-content-wrapper .button-wrapper {
  text-align: right;
 }
