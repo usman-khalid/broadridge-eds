@@ -191,31 +191,15 @@
   --card-eyebrow-on: var(--badge-on-dim);
 }
 
-/* colour-set override — surfaces are section-relative by default, but a card can carry the
-   kit's On-Dark (or On-Light) set regardless of its section. This is the live site's Insights
-   pattern: dark cards on a light band. The card names a colour set, never a colour. */
-.card.on-dark {
-  --surface-light: var(--color-blue-deep);
-  --surface-base: var(--color-blue-active);
-  --surface-mid: var(--color-navy);
-  --surface-dim: var(--color-navy-deep);
-  --on-surface: var(--color-white);
-  --badge-bg: var(--color-blue);
-  --badge-on: var(--color-white);
-  --badge-bg-dim: var(--color-blue);
-  --badge-on-dim: var(--color-white);
-}
-
-.card.on-light {
-  --surface-light: var(--color-white);
-  --surface-base: var(--color-grey-panel);
-  --surface-mid: var(--color-blue-tint);
-  --surface-dim: var(--color-blue-pale);
-  --on-surface: var(--color-navy-deep);
-  --badge-bg: var(--color-blue-pale);
-  --badge-on: var(--color-navy-deep);
-  --badge-bg-dim: var(--color-navy);
-  --badge-on-dim: var(--color-white);
+/* surface-navy — an explicit navy card for the live site's dark-cards-on-a-light-band pattern.
+   A full bundle (surface + text + badge) so it stays legible on any section, unlike the
+   section-relative surfaces which have no dark step on a light ground. */
+.card.surface-navy {
+  --card-surface: var(--color-navy);
+  --card-surface-hover: var(--color-navy-deep);
+  --card-on: var(--color-white);
+  --card-eyebrow-bg: var(--color-blue);
+  --card-eyebrow-on: var(--color-white);
 }
 
 /* types — anatomy, and each carries the surface its own spec states */
