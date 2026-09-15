@@ -321,12 +321,12 @@ button.button:disabled {
 }
 
 /* on dark sections the outline button inverts */
-main > .section[data-theme="dark"] a.button.secondary {
+main > .section.dark-background a.button.secondary {
   border-color: var(--color-white);
   color: var(--color-white);
 }
 
-main > .section[data-theme="dark"] a.button.secondary:hover {
+main > .section.dark-background a.button.secondary:hover {
   border-color: var(--color-blue-pale);
   color: var(--color-blue-pale);
 }
@@ -376,9 +376,16 @@ main > .section[data-width="extended"] > div {
   max-width: var(--extended-width);
 }
 
-main > .section[data-theme="dark"] {
+/* section backgrounds — the Background field carries a colour (decorateSectionBackgrounds paints
+   it inline and adds colored/dark/light-background by luminance). A dark ground switches to the
+   kit's On-Dark colour set, so the section's own text and any cards inside resolve against it. */
+main > .section.colored-background {
+  margin: 0;
+  padding-block: var(--space-2xl);
+}
+
+main > .section.dark-background {
   --text-color: var(--color-white);
-  --surface-color: var(--color-navy-deep);
   --link-color: var(--color-blue-pale);
   --link-hover-color: var(--color-white);
   --surface-light: var(--color-blue-deep);
@@ -390,33 +397,8 @@ main > .section[data-theme="dark"] {
   --badge-on: var(--color-white);
   --badge-bg-dim: var(--color-blue);
   --badge-on-dim: var(--color-white);
-}
 
-main > .section[data-background="panel"] {
-  --surface-color: var(--surface-base);
-}
-
-main > .section[data-background="brand"] {
-  --surface-color: var(--color-blue);
-  --text-color: var(--color-white);
-  --link-color: var(--color-white);
-  --surface-light: var(--color-blue-deep);
-  --surface-base: var(--color-blue-active);
-  --surface-mid: var(--color-navy);
-  --surface-dim: var(--color-navy-deep);
-  --on-surface: var(--color-white);
-  --badge-bg: var(--color-blue-pale);
-  --badge-on: var(--color-navy-deep);
-  --badge-bg-dim: var(--color-blue);
-  --badge-on-dim: var(--color-white);
-}
-
-main > .section[data-theme="dark"],
-main > .section[data-background] {
-  margin: 0;
-  background-color: var(--surface-color);
   color: var(--text-color);
-  padding-block: var(--space-2xl);
 }
 
 main > .section[data-spacing="tight"] {
