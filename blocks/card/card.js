@@ -34,11 +34,17 @@ export default function decorate(block) {
   if (cta && !cta.classList.contains('button')) {
     const label = cta.textContent.trim();
     if (label) {
-      cta.setAttribute('aria-label', label);
       const arrow = document.createElement('span');
       arrow.className = 'card-cta-arrow';
       arrow.append(arrowIcon());
-      cta.replaceChildren(arrow);
+      // profile keeps its "Read bio" label beside the arrow; other cards collapse to the
+      // arrow alone, since their label just repeats the heading
+      if (block.classList.contains('profile')) {
+        cta.append(arrow);
+      } else {
+        cta.setAttribute('aria-label', label);
+        cta.replaceChildren(arrow);
+      }
     }
     block.classList.add('is-clickable');
   }
