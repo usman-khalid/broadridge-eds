@@ -126,6 +126,14 @@
   inset: 0;
 }
 
+/* keep the text above the stretched-link overlay so it stays selectable and
+   editable in layout mode; the overlay still covers padding/empty areas */
+.card.is-clickable .card-body > :is(h2, h3, h4),
+.card.is-clickable .card-body > p:not(:last-child) {
+  position: relative;
+  z-index: 1;
+}
+
 /* media — body panel overlays the image */
 .card.media {
   display: grid;
