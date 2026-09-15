@@ -29,20 +29,17 @@
   --light-color: var(--color-grey-panel);
   --dark-color: var(--color-navy);
 
-  /* card emphasis ramp — step 1 is no fill, so a default card sits flush in its section.
-     Each further step separates it more. Sections rebind these per theme, which is what
-     makes a card's colour a property of where it sits rather than something an author picks.
-     Step 2 is white because the page ground is grey-panel; the kit draws its light row on
-     white, where one step of separation is grey. */
-  --surface-step-1: transparent;
-  --surface-step-2: var(--color-white);
-  --surface-step-3: var(--color-blue-tint);
-  --surface-step-4: var(--color-blue-pale);
+  /* card surfaces. Not an author axis — each card type states its own surface in its spec,
+     and the section's theme decides what that resolves to. Authors never type a colour. */
+  --card-surface-panel: var(--color-blue-tint);
+
+  /* the Bento spec says #F8F8F8, which reads as a tile on the kit's white boards. Our page
+     ground is already #f9f9f9, so the tile takes the other side of the page to stay distinct. */
+  --card-surface-tile: var(--color-white);
+  --card-surface-solid: var(--color-blue-deep);
   --on-surface: var(--color-navy-deep);
   --badge-bg: var(--color-blue-pale);
   --badge-on: var(--color-navy-deep);
-  --badge-bg-strong: var(--color-navy);
-  --badge-on-strong: var(--color-white);
   --text-color: var(--color-black);
   --link-color: var(--color-blue);
   --link-hover-color: var(--color-blue-deep);
@@ -379,16 +376,12 @@ main > .section[data-theme="dark"] {
   --surface-color: var(--color-navy-deep);
   --link-color: var(--color-blue-pale);
   --link-hover-color: var(--color-white);
-
-  /* the section is already the darkest step, so separation runs lighter */
-  --surface-step-2: var(--color-navy);
-  --surface-step-3: var(--color-blue-active);
-  --surface-step-4: var(--color-blue-deep);
+  --card-surface-panel: var(--color-navy);
+  --card-surface-tile: var(--color-blue-active);
+  --card-surface-solid: var(--color-blue-deep);
   --on-surface: var(--color-white);
   --badge-bg: var(--color-blue);
   --badge-on: var(--color-white);
-  --badge-bg-strong: var(--color-white);
-  --badge-on-strong: var(--color-blue-deep);
 }
 
 main > .section[data-background="panel"] {
@@ -399,16 +392,12 @@ main > .section[data-background="brand"] {
   --surface-color: var(--color-blue);
   --text-color: var(--color-white);
   --link-color: var(--color-white);
-
-  /* the kit's dark colour-set row: a bright blue section, steps running darker */
-  --surface-step-2: var(--color-blue-active);
-  --surface-step-3: var(--color-navy);
-  --surface-step-4: var(--color-navy-deep);
+  --card-surface-panel: var(--color-navy);
+  --card-surface-tile: var(--color-blue-active);
+  --card-surface-solid: var(--color-navy-deep);
   --on-surface: var(--color-white);
   --badge-bg: var(--color-blue-pale);
   --badge-on: var(--color-navy-deep);
-  --badge-bg-strong: var(--color-blue);
-  --badge-on-strong: var(--color-white);
 }
 
 main > .section[data-theme="dark"],

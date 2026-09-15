@@ -1,7 +1,8 @@
-/* A7 Cards. Type is anatomy — which slots exist. Emphasis is how far the card separates from
-   its section. A card never names a colour: the section's theme decides what a step means. */
+/* A7 Cards. Type is anatomy — which slots exist — and each type states its own surface in its
+   spec. There is no colour axis: an author picks a type, never a colour. The section's theme
+   decides what that type's surface resolves to. */
 .card {
-  --card-surface: var(--surface-step-1);
+  --card-surface: var(--card-surface-panel);
   --card-on: var(--on-surface);
   --card-eyebrow-bg: var(--badge-bg);
   --card-eyebrow-on: var(--badge-on);
@@ -156,25 +157,12 @@
   z-index: 1;
 }
 
-/* emphasis — the only colour axis a card has. Step 1 is no fill, so a default card
-   sits flush in whatever section it lands in. */
-.card.subtle {
-  --card-surface: var(--surface-step-2);
-}
+/* types — anatomy, and each carries the surface its own spec states */
 
-.card.medium {
-  --card-surface: var(--surface-step-3);
+/* bento: fixed tile, #F8F8F8 per the Bento spec */
+.card.bento {
+  --card-surface: var(--card-surface-tile);
 }
-
-/* at step 4 the normal badge would disappear into the surface, so it inverts — the kit
-   does the same. Surface, on-colour and badge move as one bundle or not at all. */
-.card.strong {
-  --card-surface: var(--surface-step-4);
-  --card-eyebrow-bg: var(--badge-bg-strong);
-  --card-eyebrow-on: var(--badge-on-strong);
-}
-
-/* types — anatomy, not treatment */
 
 /* media: image, title, CTA. No fill and no padding, so text aligns to the image edge. */
 .card.media {
@@ -201,7 +189,7 @@
 
 /* tabs: solid fill is part of the type, not an author choice */
 .card.tabs {
-  --card-surface: var(--color-blue-deep);
+  --card-surface: var(--card-surface-solid);
   --card-surface-hover: var(--color-blue-active);
   --card-on: var(--color-white);
   --card-eyebrow-bg: var(--color-white);
