@@ -3,7 +3,7 @@
   position: relative;
   min-height: 400px;
   height: 100%;
-  border-radius: var(--radius);
+  border-radius: var(--radius-l);
   background-color: var(--color-navy);
   color: var(--color-white);
   overflow: hidden;

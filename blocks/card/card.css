@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  border-radius: var(--radius);
+  border-radius: var(--radius-l);
   background-color: var(--card-surface);
   color: var(--card-on);
   overflow: hidden;
@@ -151,8 +151,13 @@
   inset: 0;
 }
 
-/* keep content above the stretched-link overlay so it stays editable when layout mode swaps tags for editor divs; only the link's own child keeps the overlay */
-.card.is-clickable .card-body > :not(:has(a[href])) {
+/* Whole-card click and text editing are the same gesture with opposite outcomes, so only the
+   mode tells them apart. In the rendered page nothing is raised: a click on text falls through
+   to the stretched-link overlay and navigates. In layout mode the pipeline swaps each editable
+   block for a div.prosemirror-editor; those (but not the link's own) clear the overlay so they
+   can be selected and edited. This is the one place we key off a DA class, because the two
+   behaviours are otherwise indistinguishable. */
+.card.is-clickable .card-body > .prosemirror-editor:not(:has(a[href])) {
   position: relative;
   z-index: 1;
 }
@@ -270,19 +275,21 @@
   background-color: transparent;
 }
 
+/* nested grid, so the picture stretches to the area without a % height chain — that chain
+   resolves against an indefinite area and drops to intrinsic size. Absolute positioning would
+   also work but paints the image above the body panel, which must sit on top. */
 .card.overlay .card-media {
   grid-area: 1 / 1;
-  position: relative;
+  display: grid;
   min-height: 260px;
-  height: 100%;
 }
 
-/* fill the stacked grid area directly — a % height chain here resolves against an
-   indefinite area and drops to intrinsic size, exposing the transparent card */
 .card.overlay .card-media picture,
 .card.overlay .card-media img {
-  position: absolute;
-  inset: 0;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card.overlay .card-body {
@@ -295,9 +302,10 @@
   color: var(--color-white);
 }
 
+/* the live module puts a pale badge on the navy panel, not a brand-blue one */
 .card.overlay .card-body > p:first-child {
-  background-color: var(--color-blue);
-  color: var(--color-white);
+  background-color: var(--color-blue-pale);
+  color: var(--color-navy-deep);
 }
 
 .card.is-clickable.overlay .card-body {
