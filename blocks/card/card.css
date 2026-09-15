@@ -70,7 +70,7 @@
 }
 
 /* content-derived, so :where() keeps it at zero specificity and an authored prominence still wins */
-.card:where(:not(.overlay)):where(:has(.card-media)) {
+.card:where(:not(.overlay, .media, .profile)):where(:has(.card-media)) {
   --card-heading-size: var(--heading-font-size-s);
   --card-heading-weight: 300;
   --card-heading-tracking: 0;
@@ -78,7 +78,7 @@
 
 /* prominence — one authored word moves size, weight, tracking and density together */
 .card.feature {
-  --card-heading-size: var(--heading-font-size-m);
+  --card-heading-size: var(--heading-font-size-l);
   --card-heading-weight: 300;
   --card-heading-tracking: 0;
   --card-pad: var(--space-xl);
@@ -192,14 +192,25 @@
   --card-pad: 0;
 }
 
+/* a fill-less stack has no panel to pin a CTA to the bottom of — the kit sets both at
+   item spacing 16 straight under the title */
+.card:is(.media, .profile) .card-body > p:last-child {
+  margin: 0;
+}
+
 /* profile: circular portrait, name, italic role, "Read bio" link */
 .card.profile {
   --card-surface: transparent;
   --card-pad: 0;
+  --card-gap: var(--space-s);
 }
 
+/* spec: Card / Profile is 250 wide with padding-right 32 on the image frame, so the portrait
+   is 218 and fixed — it does not grow with the grid cell */
 .card.profile .card-media {
   aspect-ratio: 1;
+  width: 100%;
+  max-width: 218px;
   border-radius: 50%;
   overflow: hidden;
 }
