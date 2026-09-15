@@ -7,7 +7,7 @@
   --card-eyebrow-bg: var(--badge-bg);
   --card-eyebrow-on: var(--badge-on);
   --card-heading-size: var(--body-font-size-m);
-  --card-heading-weight: 500;
+  --card-heading-weight: 400;
   --card-heading-tracking: -0.4px;
   --card-text-size: var(--body-font-size-m);
   --card-pad: var(--space-l);
@@ -191,6 +191,33 @@
   --card-eyebrow-on: var(--badge-on-dim);
 }
 
+/* colour-set override — surfaces are section-relative by default, but a card can carry the
+   kit's On-Dark (or On-Light) set regardless of its section. This is the live site's Insights
+   pattern: dark cards on a light band. The card names a colour set, never a colour. */
+.card.on-dark {
+  --surface-light: var(--color-blue-deep);
+  --surface-base: var(--color-blue-active);
+  --surface-mid: var(--color-navy);
+  --surface-dim: var(--color-navy-deep);
+  --on-surface: var(--color-white);
+  --badge-bg: var(--color-blue);
+  --badge-on: var(--color-white);
+  --badge-bg-dim: var(--color-blue);
+  --badge-on-dim: var(--color-white);
+}
+
+.card.on-light {
+  --surface-light: var(--color-white);
+  --surface-base: var(--color-grey-panel);
+  --surface-mid: var(--color-blue-tint);
+  --surface-dim: var(--color-blue-pale);
+  --on-surface: var(--color-navy-deep);
+  --badge-bg: var(--color-blue-pale);
+  --badge-on: var(--color-navy-deep);
+  --badge-bg-dim: var(--color-navy);
+  --badge-on-dim: var(--color-white);
+}
+
 /* types — anatomy, and each carries the surface its own spec states */
 
 /* bento: fixed tile. The spec's #F8F8F8 is color/surface/base. */
@@ -330,3 +357,41 @@
   background-color: var(--color-navy-deep);
 }
 
+
+/* grid section — the section is the grid, each block wrapper is an item */
+main > .section:is(.card-container, .hero-container) {
+  display: grid;
+  box-sizing: content-box;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--page-margin);
+}
+
+main > .section:is(.card-container, .hero-container) > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  grid-column: span var(--span-default);
+}
+
+main > .section:is(.card-container, .hero-container)[data-width="extended"] {
+  max-width: var(--extended-width);
+}
+
+main > .section:is(.card-container, .hero-container) > .default-content-wrapper {
+  grid-column: 1 / -1;
+}
+
+/* per-item span — the named intent lives on the block, the span on its wrapper */
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).third) { grid-column: span var(--span-third); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).half) { grid-column: span var(--span-half); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).two-thirds) { grid-column: span var(--span-two-thirds); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).full) { grid-column: span var(--span-full); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).tall) { grid-row: span var(--span-tall); }
+
+/* provisional: a 1-big-plus-3 bento needs a 3-row span. The kit names these as whole layouts
+   (H1 carries Layout: 60:40 / Equal / 1+2), so this belongs to the section vocabulary, not the
+   card's — revisit with the section work. */
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).tall-3) { grid-row: span var(--span-tall-3); }
