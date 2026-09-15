@@ -3,6 +3,12 @@
   --card-on: var(--color-navy-deep);
   --card-eyebrow-bg: var(--color-blue-pale);
   --card-eyebrow-on: var(--color-navy-deep);
+  --card-heading-size: var(--body-font-size-m);
+  --card-heading-weight: 500;
+  --card-heading-tracking: -0.4px;
+  --card-text-size: var(--body-font-size-m);
+  --card-pad: var(--space-l);
+  --card-gap: var(--space-m);
 
   display: flex;
   flex-direction: column;
@@ -35,8 +41,9 @@
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-m);
-  padding: var(--space-l);
+  gap: var(--card-gap);
+  padding: var(--card-pad);
+  font-size: var(--card-text-size);
 }
 
 .card .card-body > p:first-child {
@@ -50,22 +57,37 @@
   text-transform: uppercase;
 }
 
-.card .card-body h2,
-.card .card-body h3,
-.card .card-body h4 {
+/* heading level stays semantic — every level renders at the card's own scale */
+.card .card-body :is(h2, h3, h4, h5, h6) {
   margin: 0;
-  font-size: var(--body-font-size-m);
-  font-weight: 500;
-  letter-spacing: -0.4px;
+  font-size: var(--card-heading-size);
+  font-weight: var(--card-heading-weight);
+  letter-spacing: var(--card-heading-tracking);
   line-height: 1.2;
 }
 
-.card:not(.media):has(.card-media) .card-body h2,
-.card:not(.media):has(.card-media) .card-body h3,
-.card:not(.media):has(.card-media) .card-body h4 {
-  font-size: var(--heading-font-size-s);
-  font-weight: 300;
-  letter-spacing: 0;
+/* content-derived, so :where() keeps it at zero specificity and an authored prominence still wins */
+.card:where(:not(.media)):where(:has(.card-media)) {
+  --card-heading-size: var(--heading-font-size-s);
+  --card-heading-weight: 300;
+  --card-heading-tracking: 0;
+}
+
+/* prominence — one authored word moves size, weight, tracking and density together */
+.card.feature {
+  --card-heading-size: var(--heading-font-size-m);
+  --card-heading-weight: 300;
+  --card-heading-tracking: 0;
+  --card-pad: var(--space-xl);
+}
+
+.card.compact {
+  --card-heading-size: var(--body-font-size-s);
+  --card-heading-weight: 500;
+  --card-heading-tracking: -0.2px;
+  --card-text-size: var(--body-font-size-s);
+  --card-pad: var(--space-m);
+  --card-gap: var(--space-s);
 }
 
 .card .card-body p:last-child {
@@ -141,8 +163,17 @@
 
 .card.media .card-media {
   grid-area: 1 / 1;
+  position: relative;
   min-height: 260px;
   height: 100%;
+}
+
+/* fill the stacked grid area directly — a % height chain here resolves against an
+   indefinite area and drops to intrinsic size, exposing the transparent card */
+.card.media .card-media picture,
+.card.media .card-media img {
+  position: absolute;
+  inset: 0;
 }
 
 .card.media .card-body {
@@ -221,4 +252,14 @@
   --card-on: var(--color-white);
   --card-eyebrow-bg: var(--color-blue);
   --card-eyebrow-on: var(--color-white);
+}
+
+/* demo only — background exposed as an axis of its own, unpaired from the text and chip
+   colours it has to stay legible against. Delete with the vocabulary page. */
+.card.bg-navy {
+  --card-surface: var(--color-navy);
+}
+
+.card.bg-brand {
+  --card-surface: var(--color-blue);
 }
