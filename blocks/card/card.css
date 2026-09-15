@@ -126,10 +126,8 @@
   inset: 0;
 }
 
-/* keep the text above the stretched-link overlay so it stays selectable and
-   editable in layout mode; the overlay still covers padding/empty areas */
-.card.is-clickable .card-body > :is(h2, h3, h4),
-.card.is-clickable .card-body > p:not(:last-child) {
+/* keep content above the stretched-link overlay so it stays editable when layout mode swaps tags for editor divs; only the link's own child keeps the overlay */
+.card.is-clickable .card-body > :not(:has(a[href])) {
   position: relative;
   z-index: 1;
 }
