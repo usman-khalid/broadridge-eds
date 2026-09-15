@@ -2,6 +2,7 @@ footer {
   background-color: var(--color-navy-deep);
   color: var(--color-white);
   font-size: var(--body-font-size-xs);
+  margin-top: var(--space-2xl);
 }
 
 footer .footer > div {
