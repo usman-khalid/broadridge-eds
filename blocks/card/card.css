@@ -1,8 +1,10 @@
+/* A7 Cards. Type is anatomy — which slots exist. Emphasis is how far the card separates from
+   its section. A card never names a colour: the section's theme decides what a step means. */
 .card {
-  --card-surface: var(--color-white);
-  --card-on: var(--color-navy-deep);
-  --card-eyebrow-bg: var(--color-blue-pale);
-  --card-eyebrow-on: var(--color-navy-deep);
+  --card-surface: var(--surface-step-1);
+  --card-on: var(--on-surface);
+  --card-eyebrow-bg: var(--badge-bg);
+  --card-eyebrow-on: var(--badge-on);
   --card-heading-size: var(--body-font-size-m);
   --card-heading-weight: 500;
   --card-heading-tracking: -0.4px;
@@ -24,7 +26,7 @@
   line-height: 0;
 }
 
-.card:not(.media) .card-media {
+.card:not(.overlay, .profile) .card-media {
   aspect-ratio: 3 / 2;
 }
 
@@ -67,7 +69,7 @@
 }
 
 /* content-derived, so :where() keeps it at zero specificity and an authored prominence still wins */
-.card:where(:not(.media)):where(:has(.card-media)) {
+.card:where(:not(.overlay)):where(:has(.card-media)) {
   --card-heading-size: var(--heading-font-size-s);
   --card-heading-weight: 300;
   --card-heading-tracking: 0;
@@ -154,14 +156,100 @@
   z-index: 1;
 }
 
-/* media — body panel overlays the image */
+/* emphasis — the only colour axis a card has. Step 1 is no fill, so a default card
+   sits flush in whatever section it lands in. */
+.card.subtle {
+  --card-surface: var(--surface-step-2);
+}
+
+.card.medium {
+  --card-surface: var(--surface-step-3);
+}
+
+/* at step 4 the normal badge would disappear into the surface, so it inverts — the kit
+   does the same. Surface, on-colour and badge move as one bundle or not at all. */
+.card.strong {
+  --card-surface: var(--surface-step-4);
+  --card-eyebrow-bg: var(--badge-bg-strong);
+  --card-eyebrow-on: var(--badge-on-strong);
+}
+
+/* types — anatomy, not treatment */
+
+/* media: image, title, CTA. No fill and no padding, so text aligns to the image edge. */
 .card.media {
+  --card-surface: transparent;
+  --card-pad: 0;
+}
+
+/* profile: circular portrait, name, italic role, "Read bio" link */
+.card.profile {
+  --card-surface: transparent;
+  --card-pad: 0;
+}
+
+.card.profile .card-media {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.card.profile .card-body > p:not(:last-child) {
+  margin: 0;
+  font-style: italic;
+}
+
+/* tabs: solid fill is part of the type, not an author choice */
+.card.tabs {
+  --card-surface: var(--color-blue-deep);
+  --card-surface-hover: var(--color-blue-active);
+  --card-on: var(--color-white);
+  --card-eyebrow-bg: var(--color-white);
+  --card-eyebrow-on: var(--color-blue-deep);
+}
+
+/* media position — the Default type's own axis */
+.card.media-left,
+.card.media-right {
+  flex-direction: row;
+}
+
+.card.media-right {
+  flex-direction: row-reverse;
+}
+
+.card:is(.media-left, .media-right) .card-media {
+  flex: 1 1 50%;
+  aspect-ratio: auto;
+  min-height: 260px;
+}
+
+.card:is(.media-left, .media-right) .card-body {
+  flex: 1 1 50%;
+}
+
+/* content align — 3 named positions. Distribute is the default. */
+.card.align-top .card-body > p:last-child {
+  margin: 0;
+}
+
+.card.align-bottom .card-body {
+  justify-content: flex-end;
+}
+
+.card.align-bottom .card-body > p:last-child {
+  margin: 0;
+}
+
+/* overlay: the bento-grid media tile — body panel sits on the image (M1 Bento Grid, Style=Media).
+   Not an A7 type; kept distinct so it never collides with their `media`. */
+.card.overlay {
   display: grid;
   position: relative;
   background-color: transparent;
 }
 
-.card.media .card-media {
+.card.overlay .card-media {
   grid-area: 1 / 1;
   position: relative;
   min-height: 260px;
@@ -170,13 +258,13 @@
 
 /* fill the stacked grid area directly — a % height chain here resolves against an
    indefinite area and drops to intrinsic size, exposing the transparent card */
-.card.media .card-media picture,
-.card.media .card-media img {
+.card.overlay .card-media picture,
+.card.overlay .card-media img {
   position: absolute;
   inset: 0;
 }
 
-.card.media .card-body {
+.card.overlay .card-body {
   grid-area: 1 / 1;
   align-self: end;
   flex: none;
@@ -186,80 +274,16 @@
   color: var(--color-white);
 }
 
-.card.media .card-body > p:first-child {
+.card.overlay .card-body > p:first-child {
   background-color: var(--color-blue);
   color: var(--color-white);
 }
 
-.card.is-clickable.media .card-body {
+.card.is-clickable.overlay .card-body {
   transition: background-color 0.15s ease;
 }
 
-.card.is-clickable.media:hover .card-body {
+.card.is-clickable.overlay:hover .card-body {
   background-color: var(--color-navy-deep);
 }
 
-/* surface — one bundle mechanism. Each surface pairs bg + on-color for legibility.
-   Curated intents (dark/tint/accent) are aliases of specific palette surfaces;
-   the raw surface-* palette exists so the trade-off can be shown, not recommended. */
-.card.surface-white {
-  --card-surface: var(--color-white);
-}
-
-.card.surface-grey {
-  --card-surface: var(--color-grey-panel);
-}
-
-.card.tint,
-.card.surface-tint {
-  --card-surface: var(--color-blue-tint);
-}
-
-.card.surface-pale {
-  --card-surface: var(--color-blue-pale);
-  --card-eyebrow-bg: var(--color-white);
-}
-
-.card.accent,
-.card.surface-brand {
-  --card-surface: var(--color-blue);
-  --card-surface-hover: var(--color-blue-deep);
-  --card-on: var(--color-white);
-  --card-eyebrow-bg: var(--color-white);
-  --card-eyebrow-on: var(--color-blue-deep);
-}
-
-.card.surface-blue-deep {
-  --card-surface: var(--color-blue-deep);
-  --card-surface-hover: var(--color-blue-active);
-  --card-on: var(--color-white);
-  --card-eyebrow-bg: var(--color-white);
-  --card-eyebrow-on: var(--color-blue-deep);
-}
-
-.card.dark,
-.card.surface-navy {
-  --card-surface: var(--color-navy);
-  --card-surface-hover: var(--color-navy-deep);
-  --card-on: var(--color-white);
-  --card-eyebrow-bg: var(--color-blue);
-  --card-eyebrow-on: var(--color-white);
-}
-
-.card.surface-navy-deep {
-  --card-surface: var(--color-navy-deep);
-  --card-surface-hover: var(--color-black);
-  --card-on: var(--color-white);
-  --card-eyebrow-bg: var(--color-blue);
-  --card-eyebrow-on: var(--color-white);
-}
-
-/* demo only — background exposed as an axis of its own, unpaired from the text and chip
-   colours it has to stay legible against. Delete with the vocabulary page. */
-.card.bg-navy {
-  --card-surface: var(--color-navy);
-}
-
-.card.bg-brand {
-  --card-surface: var(--color-blue);
-}
