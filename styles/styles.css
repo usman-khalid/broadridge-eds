@@ -79,6 +79,7 @@
   --space-l: 24px;
   --space-xl: 32px;
   --space-2xl: 64px;
+  --space-3xl: 96px;
 
   /* grid — mobile first: 6 col / 382 content / 16 gutter / 8 margin */
   --grid-columns: 6;
@@ -382,6 +383,10 @@ main > .section[data-width="extended"] > div {
 main > .section.colored-background {
   margin: 0;
   padding-block: var(--space-2xl);
+
+  & :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 0;
+  }
 }
 
 main > .section.dark-background {
@@ -401,54 +406,32 @@ main > .section.dark-background {
   color: var(--text-color);
 }
 
-main > .section[data-spacing="tight"] {
-  margin-block: var(--space-xl);
-}
-
-main > .section[data-spacing="flush"] {
-  margin-block: 0;
-}
+/* section spacing — Style classes (Space / Module = margin around a section,
+   Space / Module Padding = internal). Sizes map to the --space scale: s 24 · m 32 · l 64 · xl 96.
+   The default section margin is 64; these override it per instance. */
+main > .section.spacer-top-s { margin-top: var(--space-l); }
+main > .section.spacer-top-m { margin-top: var(--space-xl); }
+main > .section.spacer-top-l { margin-top: var(--space-2xl); }
+main > .section.spacer-top-xl { margin-top: var(--space-3xl); }
+main > .section.spacer-bottom-s { margin-bottom: var(--space-l); }
+main > .section.spacer-bottom-m { margin-bottom: var(--space-xl); }
+main > .section.spacer-bottom-l { margin-bottom: var(--space-2xl); }
+main > .section.spacer-bottom-xl { margin-bottom: var(--space-3xl); }
+main > .section.padding-top-s { padding-top: var(--space-l); }
+main > .section.padding-top-m { padding-top: var(--space-xl); }
+main > .section.padding-top-l { padding-top: var(--space-2xl); }
+main > .section.padding-top-xl { padding-top: var(--space-3xl); }
+main > .section.padding-bottom-s { padding-bottom: var(--space-l); }
+main > .section.padding-bottom-m { padding-bottom: var(--space-xl); }
+main > .section.padding-bottom-l { padding-bottom: var(--space-2xl); }
+main > .section.padding-bottom-xl { padding-bottom: var(--space-3xl); }
 
 /* block-library authoring metadata — the picker reads it from source, so it never renders */
 .library-metadata-wrapper {
   display: none;
 }
 
-/* grid section — the section is the grid, each block wrapper is an item */
-main > .section:is(.card-container, .hero-container) {
-  display: grid;
-  box-sizing: content-box;
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
-  gap: var(--grid-gutter);
-  max-width: var(--content-width);
-  margin-inline: auto;
-  padding-inline: var(--page-margin);
+
+main > .section.right > .default-content-wrapper {
+ text-align: right;
 }
-
-main > .section:is(.card-container, .hero-container) > div {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  grid-column: span var(--span-default);
-}
-
-main > .section:is(.card-container, .hero-container)[data-width="extended"] {
-  max-width: var(--extended-width);
-}
-
-main > .section:is(.card-container, .hero-container) > .default-content-wrapper {
-  grid-column: 1 / -1;
-}
-
-/* per-item span — the named intent lives on the block, the span on its wrapper */
-main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).third) { grid-column: span var(--span-third); }
-main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).half) { grid-column: span var(--span-half); }
-main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).two-thirds) { grid-column: span var(--span-two-thirds); }
-main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).full) { grid-column: span var(--span-full); }
-main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).tall) { grid-row: span var(--span-tall); }
-
-/* provisional: a 1-big-plus-3 bento needs a 3-row span. The kit names these as whole layouts
-   (H1 carries Layout: 60:40 / Equal / 1+2), so this belongs to the section vocabulary, not the
-   card's — revisit with the section work. */
-main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).tall-3) { grid-row: span var(--span-tall-3); }
-
