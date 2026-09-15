@@ -435,3 +435,14 @@ main > .section.padding-bottom-xl { padding-bottom: var(--space-3xl); }
 main > .section.right > .default-content-wrapper .button-wrapper {
  text-align: right;
 }
+
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).third) { grid-column: span var(--span-third); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).half) { grid-column: span var(--span-half); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).two-thirds) { grid-column: span var(--span-two-thirds); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).full) { grid-column: span var(--span-full); }
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).tall) { grid-row: span var(--span-tall); }
+
+/* provisional: a 1-big-plus-3 bento needs a 3-row span. The kit names these as whole layouts
+   (H1 carries Layout: 60:40 / Equal / 1+2), so this belongs to the section vocabulary, not the
+   card's — revisit with the section work. */
+main > .section:is(.card-container, .hero-container) > div:has(> :is(.card, .hero).tall-3) { grid-row: span var(--span-tall-3); }
