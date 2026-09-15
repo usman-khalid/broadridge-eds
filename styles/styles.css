@@ -392,6 +392,11 @@ main > .section[data-spacing="flush"] {
   margin-block: 0;
 }
 
+/* block-library authoring metadata — the picker reads it from source, so it never renders */
+.library-metadata-wrapper {
+  display: none;
+}
+
 /* grid section — the section is the grid, each block wrapper is an item */
 main > .section:is(.card-container, .hero-container) {
   display: grid;
