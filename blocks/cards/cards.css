@@ -6,6 +6,7 @@
   --cards-on: var(--color-navy-deep);
   --cards-chip-bg: var(--color-blue-pale);
   --cards-chip-on: var(--color-navy-deep);
+  margin-top: var(--space-xl);
 }
 
 .cards.dark {
