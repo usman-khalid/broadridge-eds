@@ -342,26 +342,16 @@
 }
 
 
-/* grid section — the section is the grid, each block wrapper is an item */
+/* grid section — turn the (already content-width) section into the grid; each block wrapper is
+   an item. Section width lives in styles.css, so this only adds the grid. */
 main > .section:is(.card-container, .hero-container) {
   display: grid;
-  box-sizing: content-box;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
   gap: var(--grid-gutter);
-  max-width: var(--content-width);
-  margin-inline: auto;
-  padding-inline: var(--page-margin);
 }
 
 main > .section:is(.card-container, .hero-container) > div {
-  max-width: none;
-  margin: 0;
-  padding: 0;
   grid-column: span var(--span-default);
-}
-
-main > .section:is(.card-container, .hero-container)[data-width="extended"] {
-  max-width: var(--extended-width);
 }
 
 main > .section:is(.card-container, .hero-container) > .default-content-wrapper {

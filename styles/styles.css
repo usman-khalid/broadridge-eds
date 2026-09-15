@@ -355,16 +355,13 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* sections are content-width and centred by default, so a Background paints the content column
+   rather than a full-bleed band. content-box keeps the side padding outside the max-width
+   (1184 + 2*64 = 1312). This is the one place section width is set — blocks never redefine it. */
 main > .section {
-  margin: var(--space-2xl) 0;
-}
-
-/* content-box so padding sits outside max-width: 1184 + 2*64 = 1312 extended container */
-main > .section > div {
   box-sizing: content-box;
   max-width: var(--content-width);
-  margin-inline: auto;
+  margin: var(--space-2xl) auto;
   padding-inline: var(--page-margin);
 }
 
@@ -373,15 +370,29 @@ main > .section:first-of-type {
 }
 
 /* section metadata — typed keys: theme, background, width, spacing */
-main > .section[data-width="extended"] > div {
+main > .section[data-width="extended"] {
   max-width: var(--extended-width);
+}
+
+/* Width: full — a full-bleed band. The section spans the viewport; its content re-constrains to
+   the content column. This is the opt-in for edge-to-edge, so nothing else needs to be full-width. */
+main > .section[data-width="full"] {
+  max-width: none;
+  padding-inline: 0;
+}
+
+main > .section[data-width="full"] > div {
+  box-sizing: content-box;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--page-margin);
 }
 
 /* section backgrounds — the Background field carries a colour (decorateSectionBackgrounds paints
    it inline and adds colored/dark/light-background by luminance). A dark ground switches to the
    kit's On-Dark colour set, so the section's own text and any cards inside resolve against it. */
 main > .section.colored-background {
-  margin: 0;
+  margin-block: 0;
   padding-block: var(--space-2xl);
 
   & :is(h1, h2, h3, h4, h5, h6) {
